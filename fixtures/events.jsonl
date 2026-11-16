@@ -1,0 +1,6 @@
+{"kind":"start","device":"T1","seq":1,"work_order":"WO-1","at":"2026-01-01T08:00:00+00:00"}
+{"kind":"step","device":"T1","seq":2,"work_order":"WO-1","at":"2026-01-01T08:05:00+00:00","position":1,"procedure_version":"P1","result":"pass"}
+{"kind":"reading","device":"T1","seq":3,"work_order":"WO-1","at":"2026-01-01T08:10:00+00:00","instrument":"I-1","unit":"C","value":25}
+{"kind":"replace","device":"T1","seq":4,"work_order":"WO-1","at":"2026-01-01T08:15:00+00:00","old":"OLD-1","new":"NEW-1"}
+{"kind":"step","device":"T1","seq":5,"work_order":"WO-1","at":"2026-01-01T08:20:00+00:00","position":2,"procedure_version":"P1","result":"pass"}
+{"kind":"sign","device":"T1","seq":6,"work_order":"WO-1","at":"2026-01-01T08:25:00+00:00","signer":"tech-1"}

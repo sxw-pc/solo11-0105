@@ -1,0 +1,1 @@
+{"work_order":[{"id":"WO-1","equipment":"EQ-1","procedure_version":"P1","status":"待接收"}],"step":[{"work_order":"WO-1","position":1,"code":"isolate","required":1},{"work_order":"WO-1","position":2,"code":"inspect","required":1}],"instrument":[{"id":"I-1","unit":"C","min":0,"max":100,"calibrated_until":"2027-01-01T00:00:00+00:00"}],"stock":[{"part":"NEW-1","issued_to":"WO-1"}]}
