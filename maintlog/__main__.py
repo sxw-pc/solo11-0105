@@ -7,8 +7,16 @@ from .report import report
 def initialize(db_path,config):
     c=json.loads(Path(config).read_text(encoding='utf-8'));db=connect(db_path)
     with db:
-        for table,cols in [('work_order',['id','equipment','procedure_version','status']),('step',['work_order','position','code','required']),('instrument',['id','unit','min','max','calibrated_until']),('stock',['part','issued_to'])]:
-            for row in c[table]:db.execute(f'INSERT OR IGNORE INTO {table} VALUES ({",".join("?" for _ in cols)})',[row[k] for k in cols])
+        for row in c.get('work_order',[]):
+            db.execute('INSERT OR IGNORE INTO work_order VALUES (?,?,?,?,?)',(row['id'],row['equipment'],row['procedure_version'],row['status'],row.get('contract')))
+            db.execute('UPDATE work_order SET contract=? WHERE id=?',(row.get('contract'),row['id']))
+        for row in c.get('step',[]):
+            db.execute('INSERT OR IGNORE INTO step VALUES (?,?,?,?,?)',(row['work_order'],row['position'],row['code'],row['required'],row.get('time_limit_minutes')))
+            db.execute('UPDATE step SET code=?,required=?,time_limit_minutes=? WHERE work_order=? AND position=?',(row['code'],row['required'],row.get('time_limit_minutes'),row['work_order'],row['position']))
+        for row in c.get('instrument',[]):
+            db.execute('INSERT OR IGNORE INTO instrument VALUES (?,?,?,?,?)',(row['id'],row['unit'],row['min'],row['max'],row['calibrated_until']))
+        for row in c.get('stock',[]):
+            db.execute('INSERT OR IGNORE INTO stock VALUES (?,?)',(row['part'],row['issued_to']))
     db.close()
 def demo(workdir=None):
     root=Path(workdir or tempfile.mkdtemp(prefix='maintlog-'));root.mkdir(parents=True,exist_ok=True);fix=Path(__file__).resolve().parent.parent/'fixtures';db=root/'maintlog.db'
