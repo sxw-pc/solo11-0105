@@ -23,7 +23,7 @@ def ingest(path,db_path):
                     continue
                 if not db.execute('SELECT 1 FROM work_order WHERE id=?',(order,)).fetchone():
                     db.execute('INSERT INTO issue(code,work_order,detail) VALUES (?,?,?)',('unknown_order',order,f'line {line}'));continue
-                db.execute('INSERT INTO event(source_id,line_no,device,seq,work_order,kind,at,payload,sha256) VALUES (?,?,?,?,?,?,?,?,?)',(sid,line,device,seq,order,kind,r['at'],text,digest));count+=1
+                eid=db.execute('INSERT INTO event(source_id,line_no,device,seq,work_order,kind,at,payload,sha256) VALUES (?,?,?,?,?,?,?,?,?)',(sid,line,device,seq,order,kind,r['at'],text,digest)).lastrowid;db.execute('INSERT INTO evidence(event_id,source_sha256,payload_sha256,role) VALUES (?,?,?,?)',(eid,h,digest,'maintenance_event'));count+=1
             except (ValueError,KeyError,TypeError,json.JSONDecodeError) as e:
                 db.execute('INSERT INTO issue(code,work_order,detail) VALUES (?,?,?)',('parse_error',str(line),str(e)))
     db.close();return {'imported':count,'duplicate_file':False}
