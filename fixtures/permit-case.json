@@ -55,7 +55,19 @@
   ],
   "start_deadline": "2026-01-01T09:00:00+00:00",
   "contracts": [
-    "all_local_points",
-    "equivalent_cutset"
+    {
+      "id": "all_local_points",
+      "authorized_by": "SITE-SAFETY",
+      "valid_from": "2026-01-01T00:00:00+00:00",
+      "valid_until": "2026-01-02T00:00:00+00:00",
+      "rule": "each local_points node has an independently verified current lock"
+    },
+    {
+      "id": "equivalent_cutset",
+      "authorized_by": "SITE-SAFETY",
+      "valid_from": "2026-01-01T00:00:00+00:00",
+      "valid_until": "2026-01-02T00:00:00+00:00",
+      "rule": "every energy source to equipment path crosses a verified current lock"
+    }
   ]
 }
