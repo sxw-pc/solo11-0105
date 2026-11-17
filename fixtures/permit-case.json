@@ -1,0 +1,61 @@
+{
+  "work_order": "WO-P",
+  "equipment": "EQ-P",
+  "energy_sources": [
+    "GRID"
+  ],
+  "energy_edges": [
+    {
+      "from": "GRID",
+      "to": "UP"
+    },
+    {
+      "from": "UP",
+      "to": "BR-A"
+    },
+    {
+      "from": "UP",
+      "to": "BR-B"
+    },
+    {
+      "from": "BR-A",
+      "to": "EQ-P"
+    },
+    {
+      "from": "BR-B",
+      "to": "EQ-P"
+    }
+  ],
+  "local_points": [
+    "BR-A",
+    "BR-B"
+  ],
+  "lock_events": [
+    {
+      "id": "LOCK-1",
+      "point": "UP",
+      "action": "lock",
+      "at": "2026-01-01T08:00:00+00:00",
+      "staff": "OPS-1",
+      "verified_by": "SAFE-1",
+      "seal": "L-001"
+    }
+  ],
+  "signatures": [
+    {
+      "role": "operator",
+      "person": "OPS-1",
+      "at": "2026-01-01T08:05:00+00:00"
+    },
+    {
+      "role": "safety",
+      "person": "SAFE-1",
+      "at": "2026-01-01T08:06:00+00:00"
+    }
+  ],
+  "start_deadline": "2026-01-01T09:00:00+00:00",
+  "contracts": [
+    "all_local_points",
+    "equivalent_cutset"
+  ]
+}

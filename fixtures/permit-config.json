@@ -1,0 +1,20 @@
+{
+  "work_order": [
+    {
+      "id": "WO-P",
+      "equipment": "EQ-P",
+      "procedure_version": "P1",
+      "status": "待接收"
+    }
+  ],
+  "step": [
+    {
+      "work_order": "WO-P",
+      "position": 1,
+      "code": "isolate",
+      "required": 1
+    }
+  ],
+  "instrument": [],
+  "stock": []
+}
