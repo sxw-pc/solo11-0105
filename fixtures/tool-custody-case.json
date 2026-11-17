@@ -1,0 +1,56 @@
+{
+  "instrument": "I-1",
+  "work_order": "WO-1",
+  "assigned_tech": "TECH-A",
+  "voucher_serial": "SYNTHETIC-TOOL-V1",
+  "seal": "CASE-SEALED-1",
+  "custody": [
+    {
+      "kind": "store",
+      "staff": "STORE-A",
+      "at": "2026-01-01T07:00:00+00:00",
+      "seal": "CASE-SEALED-1",
+      "signed_by": "STORE-A"
+    },
+    {
+      "kind": "transfer",
+      "from": "STORE-A",
+      "to": "STORE-B",
+      "at": "2026-01-01T07:10:00+00:00",
+      "seal": "CASE-SEALED-1",
+      "signed_by": "STORE-A",
+      "accepted_by": "STORE-B"
+    },
+    {
+      "kind": "seal_check",
+      "staff": "STORE-B",
+      "at": "2026-01-01T07:20:00+00:00",
+      "seal": "CASE-SEALED-1",
+      "signed_by": "STORE-B"
+    }
+  ],
+  "claims": [
+    {
+      "id": "REQ-A",
+      "person": "TECH-A",
+      "work_order": "WO-1",
+      "at": "2026-01-01T07:25:00+00:00"
+    },
+    {
+      "id": "REQ-B",
+      "person": "TECH-B",
+      "voucher_serial": "SYNTHETIC-TOOL-V1",
+      "at": "2026-01-01T07:26:00+00:00"
+    }
+  ],
+  "contracts": [
+    {
+      "id": "assigned_technician",
+      "authorized_by": "MAINTENANCE-MANAGER"
+    },
+    {
+      "id": "voucher_bearer",
+      "authorized_by": "MAINTENANCE-MANAGER"
+    }
+  ]
+}
