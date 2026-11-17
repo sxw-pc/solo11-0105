@@ -1,0 +1,41 @@
+{
+  "equipment": "EQ-1",
+  "sensors_file": "thermal-sensors.csv",
+  "slots": [
+    {
+      "id": 0,
+      "start": "2026-01-01T07:00:00+00:00",
+      "energy_cents": 100
+    },
+    {
+      "id": 1,
+      "start": "2026-01-01T08:00:00+00:00",
+      "energy_cents": 1000
+    }
+  ],
+  "components": [
+    {
+      "id": "COMP-A",
+      "max_c": 27,
+      "heat_c_per_slot": [
+        3,
+        3
+      ]
+    },
+    {
+      "id": "COMP-B",
+      "max_c": 26,
+      "heat_c_per_slot": [
+        2,
+        2
+      ]
+    }
+  ],
+  "fan_cooling_c_per_action": 2,
+  "shared_fan_capacity": 1,
+  "total_heat_budget": 6,
+  "contracts": [
+    "min_energy",
+    "min_max_component_exposure"
+  ]
+}
