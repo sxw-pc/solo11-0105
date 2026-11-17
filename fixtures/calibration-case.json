@@ -1,0 +1,37 @@
+{
+  "instrument": "I-1",
+  "unit": "C",
+  "effective_at": "2026-02-01T00:00:00+00:00",
+  "reference": {
+    "id": "REF-1",
+    "certificate": "CERT-R1",
+    "valid_until": "2027-01-01T00:00:00+00:00",
+    "systematic_uncertainty_c": 0.1,
+    "signed_by": "LAB-ACCREDITED-1"
+  },
+  "points": [
+    {
+      "id": "P20",
+      "reference_c": 20.0,
+      "indicated_c": 20.8,
+      "repeatability_uncertainty_c": 0.2
+    },
+    {
+      "id": "P80",
+      "reference_c": 80.0,
+      "indicated_c": 80.7,
+      "repeatability_uncertainty_c": 0.2
+    }
+  ],
+  "tolerance_c": 1.0,
+  "contracts": [
+    {
+      "id": "indication_limit",
+      "authorized_by": "MAINTENANCE-QA"
+    },
+    {
+      "id": "guardband_limit",
+      "authorized_by": "MAINTENANCE-QA"
+    }
+  ]
+}
