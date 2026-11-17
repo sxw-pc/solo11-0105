@@ -1,0 +1,8 @@
+{"kind":"start","device":"TERM-L","seq":1,"work_order":"WO-L","at":"2030-06-01T08:00:00Z"}
+{"kind":"step","device":"TERM-L","seq":2,"work_order":"WO-L","at":"2030-06-01T08:05:00Z","position":1,"procedure_version":"P-L","result":"pass"}
+{"kind":"reading","device":"TERM-L","seq":3,"work_order":"WO-L","at":"2030-06-01T08:10:00Z","instrument":"P-L","unit":"bar","value":2.0}
+{"kind":"reading","device":"TERM-L","seq":4,"work_order":"WO-L","at":"2030-06-01T08:10:00Z","instrument":"T-L","unit":"C","value":20}
+{"kind":"reading","device":"TERM-L","seq":5,"work_order":"WO-L","at":"2030-06-01T09:10:00Z","instrument":"P-L","unit":"bar","value":1.8}
+{"kind":"reading","device":"TERM-L","seq":6,"work_order":"WO-L","at":"2030-06-01T09:10:00Z","instrument":"T-L","unit":"C","value":30}
+{"kind":"replace","device":"TERM-L","seq":7,"work_order":"WO-L","at":"2030-06-01T09:15:00Z","old":"SEAL-OLD","new":"SEAL-NEW"}
+{"kind":"sign","device":"TERM-L","seq":8,"work_order":"WO-L","at":"2030-06-01T09:20:00Z","signer":"tech-L"}
