@@ -1,0 +1,38 @@
+{
+  "equipment": "EQ-1",
+  "target_version": "v2",
+  "devices": [
+    {
+      "id": "DEV-A",
+      "cell": "CELL-1",
+      "current_version": "v1"
+    },
+    {
+      "id": "DEV-B",
+      "cell": "CELL-1",
+      "current_version": "v1",
+      "failure": "commit_then_ack_lost"
+    },
+    {
+      "id": "DEV-C",
+      "cell": "CELL-2",
+      "current_version": "v1",
+      "failure": "reject"
+    }
+  ],
+  "order": [
+    "DEV-A",
+    "DEV-B",
+    "DEV-C"
+  ],
+  "contracts": [
+    {
+      "id": "atomic_fleet",
+      "authorized_by": "SERVICE-OPS"
+    },
+    {
+      "id": "cell_isolated",
+      "authorized_by": "SERVICE-OPS"
+    }
+  ]
+}
