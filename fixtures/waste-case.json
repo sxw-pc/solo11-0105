@@ -1,0 +1,20 @@
+{
+  "work_order": "WO-1",
+  "containers_file": "waste-containers.csv",
+  "inspection_at": "2026-01-01T09:00:00+00:00",
+  "inspector": "ENV-TECH-1",
+  "contracts": [
+    {
+      "id": "closed_loop_sep",
+      "authorized_by": "ENV-BOARD",
+      "process_cert": "SEP-1",
+      "cert_valid_until": "2027-01-01T00:00:00+00:00"
+    },
+    {
+      "id": "sealed_ship",
+      "authorized_by": "ENV-BOARD",
+      "carrier_license": "CAR-1",
+      "manifest_id": "M-1"
+    }
+  ]
+}
