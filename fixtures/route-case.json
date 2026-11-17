@@ -1,0 +1,70 @@
+{
+  "depot": "D",
+  "shift_start": "2026-11-17T08:00:00+08:00",
+  "shift_end": "2026-11-17T09:00:00+08:00",
+  "technicians": [
+    {
+      "id": "T-1",
+      "skills": [
+        "service"
+      ],
+      "kit_capacity": 1
+    }
+  ],
+  "visits": [
+    {
+      "work_order": "WO-A",
+      "equipment": "EQ-A",
+      "node": "A",
+      "service_minutes": 5,
+      "skill": "service",
+      "kit": "K",
+      "deadline_minutes": 50
+    },
+    {
+      "work_order": "WO-B",
+      "equipment": "EQ-B",
+      "node": "B",
+      "service_minutes": 5,
+      "skill": "service",
+      "kit": "K",
+      "deadline_minutes": 25
+    }
+  ],
+  "arcs": [
+    {
+      "from": "D",
+      "to": "A",
+      "minutes": 10
+    },
+    {
+      "from": "A",
+      "to": "D",
+      "minutes": 10
+    },
+    {
+      "from": "D",
+      "to": "B",
+      "minutes": 15
+    },
+    {
+      "from": "B",
+      "to": "D",
+      "minutes": 10
+    },
+    {
+      "from": "A",
+      "to": "B",
+      "minutes": 20
+    },
+    {
+      "from": "B",
+      "to": "A",
+      "minutes": 22
+    }
+  ],
+  "contracts": [
+    "min_travel",
+    "min_max_lateness"
+  ]
+}

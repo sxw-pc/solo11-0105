@@ -1,0 +1,32 @@
+{
+  "work_order": [
+    {
+      "id": "WO-A",
+      "equipment": "EQ-A",
+      "procedure_version": "P1",
+      "status": "待接收"
+    },
+    {
+      "id": "WO-B",
+      "equipment": "EQ-B",
+      "procedure_version": "P1",
+      "status": "待接收"
+    }
+  ],
+  "step": [
+    {
+      "work_order": "WO-A",
+      "position": 1,
+      "code": "service",
+      "required": 1
+    },
+    {
+      "work_order": "WO-B",
+      "position": 1,
+      "code": "service",
+      "required": 1
+    }
+  ],
+  "instrument": [],
+  "stock": []
+}
