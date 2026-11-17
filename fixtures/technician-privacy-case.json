@@ -1,0 +1,30 @@
+{
+  "audience": "COMMUNITY-PARTNER",
+  "prior": {
+    "id": "R1",
+    "members": [
+      "P1",
+      "P2",
+      "P3"
+    ],
+    "reading_count": 6
+  },
+  "proposed": {
+    "id": "R2",
+    "members": [
+      "P1",
+      "P2"
+    ],
+    "reading_count": 3
+  },
+  "contracts": [
+    {
+      "id": "internal_auditor",
+      "authorized_by": "MAINTENANCE-QA"
+    },
+    {
+      "id": "external_partner",
+      "authorized_by": "DATA-GOVERNANCE"
+    }
+  ]
+}

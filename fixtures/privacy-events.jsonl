@@ -1,0 +1,11 @@
+{"kind": "start", "device": "TERM-1", "seq": 1, "work_order": "WO-1", "at": "2026-01-01T08:00:00+00:00"}
+{"kind": "step", "device": "TERM-1", "seq": 2, "work_order": "WO-1", "at": "2026-01-01T08:01:00+00:00", "position": 1, "procedure_version": "P1", "result": "pass"}
+{"kind": "reading", "device": "TERM-1", "seq": 3, "work_order": "WO-1", "at": "2026-01-01T08:03:00+00:00", "instrument": "I-1", "unit": "C", "value": 23, "operator": "P1"}
+{"kind": "reading", "device": "TERM-1", "seq": 4, "work_order": "WO-1", "at": "2026-01-01T08:04:00+00:00", "instrument": "I-1", "unit": "C", "value": 24, "operator": "P2"}
+{"kind": "reading", "device": "TERM-1", "seq": 5, "work_order": "WO-1", "at": "2026-01-01T08:05:00+00:00", "instrument": "I-1", "unit": "C", "value": 25, "operator": "P2"}
+{"kind": "reading", "device": "TERM-1", "seq": 6, "work_order": "WO-1", "at": "2026-01-01T08:06:00+00:00", "instrument": "I-1", "unit": "C", "value": 26, "operator": "P3"}
+{"kind": "reading", "device": "TERM-1", "seq": 7, "work_order": "WO-1", "at": "2026-01-01T08:07:00+00:00", "instrument": "I-1", "unit": "C", "value": 27, "operator": "P3"}
+{"kind": "reading", "device": "TERM-1", "seq": 8, "work_order": "WO-1", "at": "2026-01-01T08:08:00+00:00", "instrument": "I-1", "unit": "C", "value": 28, "operator": "P3"}
+{"kind": "replace", "device": "TERM-1", "seq": 9, "work_order": "WO-1", "at": "2026-01-01T08:15:00+00:00", "old": "OLD-1", "new": "NEW-1"}
+{"kind": "step", "device": "TERM-1", "seq": 10, "work_order": "WO-1", "at": "2026-01-01T08:20:00+00:00", "position": 2, "procedure_version": "P1", "result": "pass"}
+{"kind": "sign", "device": "TERM-1", "seq": 11, "work_order": "WO-1", "at": "2026-01-01T08:25:00+00:00", "signer": "tech-1"}
