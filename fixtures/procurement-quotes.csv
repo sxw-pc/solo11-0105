@@ -1,0 +1,5 @@
+vendor,sku,unit_cents,available_qty,arrival_day,min_order_cents
+S,NEW-1,4000,2,5,10000
+S,GASKET,2000,1,5,10000
+F,NEW-1,6500,2,1,0
+F,GASKET,3000,1,1,0

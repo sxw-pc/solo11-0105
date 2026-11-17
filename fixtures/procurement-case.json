@@ -1,0 +1,21 @@
+{
+  "work_order": "WO-1",
+  "quotes_file": "procurement-quotes.csv",
+  "demand": [
+    {
+      "sku": "NEW-1",
+      "qty": 2,
+      "deadline_day": 3
+    },
+    {
+      "sku": "GASKET",
+      "qty": 1,
+      "deadline_day": 6
+    }
+  ],
+  "contracts": [
+    "min_total_cost",
+    "min_max_lateness"
+  ],
+  "planning_day": "2026-01-02"
+}
