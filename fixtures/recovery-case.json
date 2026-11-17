@@ -1,0 +1,44 @@
+{
+  "work_order": "WO-1",
+  "removed_assembly": "OLD-1",
+  "inspection_batch": "INS-1",
+  "cores": [
+    {
+      "serial": "CORE-A",
+      "parent": "OLD-1",
+      "condition": "repairable",
+      "bench_slots": 2,
+      "class": "safety",
+      "test": "open"
+    },
+    {
+      "serial": "CORE-B",
+      "parent": "OLD-1",
+      "condition": "repairable",
+      "bench_slots": 1,
+      "class": "standard",
+      "test": "open"
+    },
+    {
+      "serial": "CORE-C",
+      "parent": "OLD-1",
+      "condition": "repairable",
+      "bench_slots": 1,
+      "class": "standard",
+      "test": "open"
+    },
+    {
+      "serial": "CORE-D",
+      "parent": "OLD-1",
+      "condition": "ready",
+      "bench_slots": 0,
+      "class": "standard",
+      "test": "sealed"
+    }
+  ],
+  "repair_slots": 2,
+  "contracts": [
+    "safety_first",
+    "max_ready_count"
+  ]
+}
