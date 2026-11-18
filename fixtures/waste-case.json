@@ -15,6 +15,7 @@
       "id": "sealed_ship",
       "authorized_by": "ENV-BOARD",
       "carrier_license": "CAR-1",
+      "license_valid_until": "2027-01-01T00:00:00+00:00",
       "manifest_id": "M-1",
       "receipt": {
         "id": "REC-M1",

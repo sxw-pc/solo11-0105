@@ -3,6 +3,23 @@ from collections import defaultdict
 from .store import connect
 from .ingest import when
 VERSION='1'
+def service_basis(db_path,work_order):
+    """Return the frozen completion conclusion that waste disposition may cite.
+
+    Waste handling never alters the maintenance decision; it only references
+    the completed work order, its evidence event ids and rule version.
+    Stock/replacement records are deliberately excluded: issued parts and
+    reused assemblies are never liquid hazardous-waste vouchers.
+    """
+    db=connect(db_path)
+    try:
+        d=db.execute('SELECT * FROM decision WHERE work_order=?',(work_order,)).fetchone()
+        if not d:raise ValueError('decision_missing')
+        detail=json.loads(d['detail'])
+        return {'work_order':work_order,'status':d['status'],'rule_version':d['rule_version'],
+                'event_ids':detail.get('event_ids',[]),'signature_ids':detail.get('signature_ids',[]),
+                'reading_ids':detail.get('reading_ids',[])}
+    finally:db.close()
 def evaluate(path):
     db=connect(path);out={}
     with db:
