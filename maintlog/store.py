@@ -14,6 +14,10 @@ CREATE TABLE IF NOT EXISTS evidence(id INTEGER PRIMARY KEY, event_id INTEGER NOT
 CREATE TABLE IF NOT EXISTS technician_privacy_case(id TEXT PRIMARY KEY,payload TEXT NOT NULL,digest TEXT NOT NULL);
 CREATE TABLE IF NOT EXISTS published_tech_stat(id TEXT PRIMARY KEY,audience TEXT NOT NULL,members TEXT NOT NULL,reading_count INTEGER NOT NULL,source_sha256 TEXT NOT NULL);
 CREATE TABLE IF NOT EXISTS run(id INTEGER PRIMARY KEY, status TEXT NOT NULL CHECK(status IN ('待接收','已校验','待核','已判定','作废')), started_at TEXT NOT NULL, ended_at TEXT);
+CREATE TABLE IF NOT EXISTS release_contract(id TEXT NOT NULL,audience TEXT NOT NULL,mode TEXT NOT NULL CHECK(mode IN ('per_technician','aggregate_inference_checked')),authorized_by TEXT,digest TEXT NOT NULL,registered_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,PRIMARY KEY(id,audience));
+CREATE TABLE IF NOT EXISTS release_ledger(id INTEGER PRIMARY KEY,report_id TEXT NOT NULL,audience TEXT NOT NULL,contract_id TEXT NOT NULL,members TEXT,reading_count INTEGER,event_version TEXT NOT NULL,source_digest TEXT NOT NULL,contract_digest TEXT NOT NULL,report_digest TEXT NOT NULL,status TEXT NOT NULL CHECK(status IN ('placeholder','published','rejected','aborted')),reason TEXT,evidence_digest TEXT,json_path TEXT,md_path TEXT,created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,published_at TEXT,UNIQUE(audience,report_id));
+CREATE TABLE IF NOT EXISTS release_ledger_event(id INTEGER PRIMARY KEY,ledger_id INTEGER REFERENCES release_ledger(id),at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,phase TEXT NOT NULL,detail TEXT NOT NULL);
 """
 def connect(path):
-    path=Path(path);path.parent.mkdir(parents=True,exist_ok=True);db=sqlite3.connect(path);db.row_factory=sqlite3.Row;db.executescript(SCHEMA);return db
+    path=Path(path);path.parent.mkdir(parents=True,exist_ok=True);db=sqlite3.connect(path);db.row_factory=sqlite3.Row
+    db.execute('PRAGMA busy_timeout=5000');db.execute('PRAGMA foreign_keys=ON');db.executescript(SCHEMA);return db
