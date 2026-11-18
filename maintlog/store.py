@@ -1,4 +1,5 @@
 import sqlite3
+from datetime import datetime
 from pathlib import Path
 SCHEMA="""
 PRAGMA foreign_keys=ON;
@@ -12,7 +13,14 @@ CREATE TABLE IF NOT EXISTS issue(id INTEGER PRIMARY KEY,code TEXT NOT NULL,work_
 CREATE TABLE IF NOT EXISTS decision(work_order TEXT PRIMARY KEY REFERENCES work_order(id),status TEXT NOT NULL,detail TEXT NOT NULL,rule_version TEXT NOT NULL);
 CREATE TABLE IF NOT EXISTS evidence(id INTEGER PRIMARY KEY, event_id INTEGER NOT NULL REFERENCES event(id), source_sha256 TEXT NOT NULL, payload_sha256 TEXT NOT NULL, role TEXT NOT NULL, UNIQUE(event_id,role));
 CREATE TABLE IF NOT EXISTS permit_case(id TEXT PRIMARY KEY,payload TEXT NOT NULL,digest TEXT NOT NULL);
+CREATE TABLE IF NOT EXISTS permit_grant(id TEXT PRIMARY KEY,case_id TEXT NOT NULL REFERENCES permit_case(id),case_digest TEXT NOT NULL,work_order TEXT NOT NULL,contract TEXT NOT NULL,fence TEXT NOT NULL UNIQUE,topology_digest TEXT NOT NULL,lock_digest TEXT NOT NULL,valid_from TEXT NOT NULL,valid_until TEXT NOT NULL,evidence TEXT NOT NULL,status TEXT NOT NULL CHECK(status IN ('active','consumed','revoked')),granted_at TEXT NOT NULL,consumed_event INTEGER REFERENCES event(id));
+CREATE TABLE IF NOT EXISTS start_attempt(id INTEGER PRIMARY KEY,event_id INTEGER NOT NULL REFERENCES event(id),work_order TEXT NOT NULL,grant_id TEXT REFERENCES permit_grant(id),status TEXT NOT NULL CHECK(status IN ('permitted','blocked')),reason TEXT NOT NULL,evidence TEXT NOT NULL,UNIQUE(event_id));
+CREATE TABLE IF NOT EXISTS permit_adjudication(id INTEGER PRIMARY KEY,case_id TEXT NOT NULL,contract TEXT NOT NULL,at TEXT NOT NULL,outcome TEXT NOT NULL CHECK(outcome IN ('granted','denied')),evidence TEXT NOT NULL,grant_id TEXT);
 CREATE TABLE IF NOT EXISTS run(id INTEGER PRIMARY KEY, status TEXT NOT NULL CHECK(status IN ('待接收','已校验','待核','已判定','作废')), started_at TEXT NOT NULL, ended_at TEXT);
 """
+def when(s):
+    t=datetime.fromisoformat(s.replace('Z','+00:00'))
+    if t.tzinfo is None:raise ValueError('timezone_required')
+    return t
 def connect(path):
     path=Path(path);path.parent.mkdir(parents=True,exist_ok=True);db=sqlite3.connect(path);db.row_factory=sqlite3.Row;db.executescript(SCHEMA);return db

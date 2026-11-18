@@ -10,6 +10,11 @@ def evaluate(path):
         db.execute("UPDATE run SET status='已校验' WHERE id=?",(run_id,))
         db.execute('DELETE FROM decision');db.execute("DELETE FROM issue WHERE code NOT IN ('parse_error','identity_conflict','unknown_order')")
         events=[dict(e) for e in db.execute('SELECT * FROM event ORDER BY at,id')]
+        permit_wos=set()
+        for r in db.execute('SELECT payload FROM permit_case'):
+            try:permit_wos.add(json.loads(r['payload'])['case']['work_order'])
+            except (KeyError,TypeError,json.JSONDecodeError):continue
+        attempts={r['event_id']:(r['status'],r['reason']) for r in db.execute('SELECT event_id,status,reason FROM start_attempt')}
         devices=defaultdict(list)
         for e in events:devices[e['device']].append(e)
         gaps=set()
@@ -19,13 +24,20 @@ def evaluate(path):
                 gaps.update(e['work_order'] for e in ee);db.execute('INSERT INTO issue(code,work_order,detail) VALUES (?,?,?)',('sequence_gap',d,'missing terminal sequence'))
         for order in db.execute('SELECT * FROM work_order'):
             oid=order['id'];ee=[e for e in events if e['work_order']==oid];steps={r['position']:dict(r) for r in db.execute('SELECT * FROM step WHERE work_order=?',(oid,))}
-            problems=[];done=set();state='new';readings=[];parts=[];signatures=[]
+            problems=[];extras={};done=set();state='new';readings=[];parts=[];signatures=[]
             if oid in gaps:problems.append(('sequence_gap',None))
             for e in ee:
                 data=json.loads(e['payload']);kind=e['kind']
                 if kind=='start':
-                    if state!='new':problems.append(('bad_transition',e['id']))
-                    else:state='active'
+                    permitted=True
+                    if oid in permit_wos:
+                        st=attempts.get(e['id'])
+                        permitted=bool(st and st[0]=='permitted')
+                        if not permitted:
+                            problems.append(('permit_denied',e['id']));extras[('permit_denied',e['id'])]=st[1] if st else 'permit_missing'
+                    if permitted:
+                        if state!='new':problems.append(('bad_transition',e['id']))
+                        else:state='active'
                 elif kind=='pause':
                     if state!='active':problems.append(('bad_transition',e['id']))
                     else:state='paused'
@@ -59,10 +71,11 @@ def evaluate(path):
             if not readings:problems.append(('missing_reading',None))
             if not parts:problems.append(('missing_part',None))
             for code,eid in sorted(set(problems)):
-                db.execute('INSERT INTO issue(code,work_order,event_id,detail) VALUES (?,?,?,?)',(code,oid,eid,code))
-            severe={'step_failed','step_order','bad_transition','inactive_event','part_mismatch','reading_untrusted'}
+                db.execute('INSERT INTO issue(code,work_order,event_id,detail) VALUES (?,?,?,?)',(code,oid,eid,extras.get((code,eid),code)))
+            severe={'step_failed','step_order','bad_transition','inactive_event','part_mismatch','reading_untrusted','permit_denied'}
             status='作废' if state=='void' else ('需返工' if any(c in severe for c,_ in problems) else ('证据不足' if problems else '完成'))
-            detail=json.dumps({'event_ids':[e['id'] for e in ee],'completed_steps':sorted(done),'reading_ids':readings,'replacement_ids':parts,'signature_ids':signatures,'issues':[c for c,_ in problems]},ensure_ascii=False)
+            start_attempts=[{'event_id':e['id'],'status':attempts[e['id']][0],'reason':attempts[e['id']][1]} for e in ee if e['kind']=='start' and e['id'] in attempts]
+            detail=json.dumps({'event_ids':[e['id'] for e in ee],'completed_steps':sorted(done),'reading_ids':readings,'replacement_ids':parts,'signature_ids':signatures,'start_attempts':start_attempts,'issues':[c for c,_ in problems]},ensure_ascii=False)
             db.execute('UPDATE work_order SET status=? WHERE id=?',('作废' if status=='作废' else '已判定',oid))
             db.execute('INSERT INTO decision VALUES (?,?,?,?)',(oid,status,detail,VERSION));out[oid]=status
         db.execute("UPDATE run SET status=CASE WHEN EXISTS(SELECT 1 FROM decision WHERE status NOT IN ('完成','作废')) THEN '待核' ELSE '已判定' END,ended_at=CURRENT_TIMESTAMP WHERE id=?",(run_id,))
