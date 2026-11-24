@@ -1,0 +1,51 @@
+{
+  "equipment": "EQ-1",
+  "work_order": "WO-1",
+  "rpm_range": [
+    900,
+    1500
+  ],
+  "vibration_limit_mm_s": 3.2,
+  "traces": [
+    {
+      "rpm": 900,
+      "axial": 1.2,
+      "radial": 1,
+      "phase_deg": 5
+    },
+    {
+      "rpm": 1200,
+      "axial": 3.1,
+      "radial": 1.7,
+      "phase_deg": 85
+    },
+    {
+      "rpm": 1500,
+      "axial": 1.8,
+      "radial": 2.5,
+      "phase_deg": 170
+    }
+  ],
+  "mount_calibrations": [
+    {
+      "id": "CAL-A",
+      "axial_gain": 1,
+      "radial_gain": 1,
+      "axis_rotation_deg": 0
+    },
+    {
+      "id": "CAL-R",
+      "axial_gain": 0.6,
+      "radial_gain": 1.4,
+      "axis_rotation_deg": 35
+    }
+  ],
+  "bearing_records": [
+    {
+      "id": "BEAR-1",
+      "kind": "original",
+      "at": "2026-01-01T08:00:00Z"
+    }
+  ],
+  "test_window": "2026-01-01T09:00:00Z"
+}
